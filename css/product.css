@@ -1,0 +1,124 @@
+/* product */
+
+.product{
+	margin-top: 65px;
+	width: 100%;
+	background: #ededed;
+}
+.product .wrap{
+	padding:5% 15%;
+}
+.product_left{
+	width: 27%;
+	float: left;
+	margin-right: 6%;
+	text-align: center;
+}
+.product_left a{
+	height: 50px;
+	line-height: 50px;
+	border-radius: 5px;
+	background: #333;
+	font-size: 16px;
+	display: block;
+	color: #fff;
+	height: 40px;
+	margin-bottom: 10px;
+	line-height: 40px;
+}
+.product_left a:hover{
+	background: #98FB98;
+}
+.product_left .active{
+	background: #98FB98;
+}
+.product_right{
+	width: 60%;
+	padding-left: 6%;
+	border-left: 2px solid #000;
+	float: left;
+}
+.product_right h2{
+	color: #333;
+}
+.product_right .content{
+	margin: 10px 0;
+}
+.product_right .content dl{
+	margin: 0 25px 25px 0;
+	float: left;
+	overflow: hidden;
+	width: 220px;
+	height: 240px;
+	box-shadow: 2px 2px 10px 1px rgba(0,0,0,.5);
+}
+.product_right .content dl:nth-of-type(3n){
+	margin-right: 0;
+}
+.product_right .content dt{
+	height: 175px;
+}
+.product_right .content dt img{
+	width: 220px;
+	height: 175px;
+}
+.product_right .content dd{
+	padding: 0px 20px 10px;
+	height: 65px;
+}
+.product_right .content dd h3{
+	overflow: hidden;
+	font-weight: bold;
+	height: 30px;
+	font-size: 14px;
+	line-height: 30px;
+}
+
+.product_right .content dd p{
+	line-break: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.pages{
+	text-align: center;
+	background: #333;
+	padding:5px 30px;
+	border-radius: 10px;
+	height: 30px;
+	line-height: 30px;
+	margin-top: 20px;
+}
+.pages a{
+	border-radius: 50%;
+	margin-right: 10px;
+	font-size: 14px;
+	color: #fff;
+	display: block;
+	float: left;
+	background: #98FB98;
+	padding:0 10px;
+	border-radius: 20px;
+	height: 30px;
+	text-align: center;
+}
+.pages a.active{
+	background: #98FB98;
+}
+.pages a:hover{
+	background: #fff400;
+}
+.pages span{
+	color: #fff;
+	font-size: 14px;
+}
+.pages #prev{
+	float: left;
+}
+.pages #next{
+	float: right;
+}
+

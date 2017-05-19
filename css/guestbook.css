@@ -1,0 +1,97 @@
+/* guestbook */
+.guestbook{
+	margin-top: 65px;
+	width: 100%;
+}
+.guestbook .wrap{
+}
+.guestbook .head{
+	height: 80px;
+	background: url(../img/guest_head.png) no-repeat center;
+}
+.guestbook_con{
+	padding: 20px 0;
+	width: 700px;
+	margin: 0 auto;
+}
+.write{
+	background: #333;
+	padding: 20px;
+	border-radius: 10px;
+	height: 180px;
+}
+.write div{
+	color: #fff;
+}
+.write span{
+	width: 5%;
+	vertical-align:top;
+	font-size: 14px;
+	line-height: 30px;
+}
+.write textarea{
+	margin-left: 20px;
+	padding: 10px;
+	border-radius: 10px;
+	font-size: 16px;
+	width: 580px;
+	height: 80px;
+	border-color: #fff;
+	outline: none;
+}
+.write a{
+	font-size: 14px;
+	height: 40px;
+	line-height: 40px;
+	float: right;
+	margin:10px 30px 0 0;
+	border-radius: 5px;
+	padding: 0 10px;
+	background: #fff400;
+	color: #fff;
+}
+.guest_old{
+	padding: 20px 0;
+}
+
+.guest_old dl{
+	background: url(../img/guest_bg.png) no-repeat center -10px;
+	background-size: 100% 98%;
+	overflow: hidden;
+	word-break: break-all;
+	border-radius: 10px;
+	margin-top: 20px;
+	padding: 80px 40px 20px;
+	color: #fff;
+}
+.guest_old dt{
+	margin-bottom: 10px;
+	font-size: 14px;
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid #fff;
+}
+.guest_old dd{
+	text-indent: 2em;
+	padding: 10px 0;
+}
+.guest_old dd.t{
+	float: right;
+}
+.guest_old a{
+	color: #98FB98;
+}
+.guestbook_con #more{
+	display: block;
+	width: 300px;
+	height: 40px;
+	line-height: 40px;
+	background: #FFF400;
+	color: #333;
+	text-align: center;
+	margin: 0 auto;
+	font-size: 16px;
+	margin-top: 30px;
+	border-radius: 5px;
+}
+.guestbook_con a:hover{text-decoration: underline;}

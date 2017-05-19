@@ -1,0 +1,82 @@
+/* joinUs */
+
+.joinUs{
+	margin-top: 65px;
+	width: 100%;
+	background: #ededed;
+}
+.joinUs .wrap{
+	padding:5% 15%;
+}
+.joinUs_left{
+	width: 27%;
+	float: left;
+	margin-right: 6%;
+	text-align: center;
+}
+.joinUs_left a{
+	height: 50px;
+	line-height: 50px;
+	border-radius: 5px;
+	background: #333;
+	font-size: 16px;
+	display: block;
+	color: #fff;
+	height: 40px;
+	margin-bottom: 10px;
+	line-height: 40px;
+}
+.joinUs_left .active{
+	background: #98FB98;
+}
+.joinUs_right{
+	width: 60%;
+	padding-left: 6%;
+	border-left: 2px solid #000;
+	float: left;
+}
+.joinUs_right h2{
+	color: #333;
+}
+.joinUs_right p{
+	font-size: 14px;
+	margin-bottom: 20px;
+	line-height: 24px;
+}
+
+.joinUs_right #form2{
+	background: #fff;
+	padding:20px;
+}
+
+.joinUs_right #form2 p{
+	width:100%;
+	line-height:30px;
+	margin-bottom: 10px;
+}
+
+.joinUs_right #form2 span{
+	float: left;
+	width:30%;
+	text-align: right;
+}
+.joinUs_right #form2 textarea{
+	width:50%;
+}
+.joinUs_right #form2 .text{
+	width:50%;
+	height:30px;
+	line-height:30px;
+	padding-left: 10px;
+}
+.joinUs_right #submit{
+	color: #000000;
+	background: #FFF400;
+	display: block;
+	margin: 0 auto;
+	padding:0 10px;
+	width:50px;
+	height:30px;
+	line-height:30px;
+	border-radius:5px;
+}

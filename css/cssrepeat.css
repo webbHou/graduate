@@ -1,0 +1,36 @@
+﻿/* 样式重置css repeat */
+
+body,h1,h3,h4,h5,p,ul,li,dl,dd{
+	margin:0;
+	padding: 0;
+	font-weight: normal;
+}
+body{
+	font-family: "微软雅黑";
+	font-size: 12px;
+	margin: 0 auto;
+	width: 100%;
+	color: #333;
+	background-color: #ededed;
+}
+ul{
+	list-style:none;
+}
+a{	text-decoration: none; }
+
+img{ border:none;vertical-align: top; }
+
+.clear:after{
+	content: "";
+	display: block;
+	visibility: hidden;
+	overflow: hidden;
+	clear: both;
+	height: 0;
+}
+.wrap{
+	max-width: 1200px;
+	padding: 0 10px;
+	margin: 0 auto;
+}
+

@@ -1,0 +1,45 @@
+/* AboutUs */
+
+.AboutUs{
+	margin-top: 65px;
+	width: 100%;
+	background: #ededed;
+}
+.AboutUs .wrap{
+	padding:5% 15%;
+}
+.AboutUs_left{
+	width: 27%;
+	float: left;
+	margin-right: 6%;
+	text-align: center;
+}
+.AboutUs_left a{
+	height: 50px;
+	line-height: 50px;
+	border-radius: 5px;
+	background: #333;
+	font-size: 16px;
+	display: block;
+	color: #fff;
+	height: 40px;
+	margin-bottom: 10px;
+	line-height: 40px;
+}
+.AboutUs_left .active{
+	background: #98FB98;
+}
+.AboutUs_right{
+	width: 60%;
+	padding-left: 6%;
+	border-left: 2px solid #000;
+	float: left;
+}
+.AboutUs_right h2{
+	color: #333;
+}
+.AboutUs_right p{
+	font-size: 14px;
+	margin-bottom: 20px;
+	line-height: 24px;
+}

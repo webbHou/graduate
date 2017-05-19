@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="shortcut icon" href="img/icon3.ico" />
+		<title>基地优秀学生-数字媒体教育实践基地</title>
+		<link rel="stylesheet" href="../css/cssrepeat.css" />
+		<link rel="stylesheet" href="../css/header&footer.css" />
+		<link rel="stylesheet" type="text/css" href="../css/team.css"/>
+		<script src="../js/jquery-2.0.3.js" type="text/javascript"></script>
+		<script src="../js/nav.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/sign.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/getStudentList.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!-- 头部和导航 -->
+		<div id="header">
+			<div class="wrap">
+				<h1 class="logo"><img src="../img/TITLE1.png"/></h1>
+				<ul id="nav">
+					<li><a href="../index.html">首页</a></li>
+					<li><a href="Intro.html">基地简介</a>
+						<ul>
+							<li><a href="Intro.html">基地职能与介绍</a></li>
+							<li><a href="evirment.html">基地环境与设备</a></li>
+							<li><a href="result.html">基地成果</a></li>
+						</ul>
+					</li>
+					<li class="active"><a href="student.html">优秀成员</a>
+						<ul>
+							<li><a href="teacher.html">优秀指导教师</a></li>
+							<li><a href="student.html">优秀学生</a></li>
+						</ul>
+					</li>
+					<li><a href="News.html#1">新闻公告</a>
+						<ul>
+							<li><a href="News.html#1">数字媒体行业新闻</a></li>
+							<li><a href="News.html#2">学校新闻</a></li>
+							<li><a href="News.html#3">基地新闻</a></li>
+							<li><a href="News.html#4">比赛公告</a></li>
+						</ul>
+					</li>
+					<li><a href="Product.html#1">优秀作品</a>
+						<ul>
+							<li><a href="Product.html#1">平面作品</a></li>
+							<li><a href="Product.html#2">影视作品</a></li>
+							<li><a href="Product.html#3">音频作品</a></li>
+							<li><a href="Product.html#4">3D和虚拟现实作品</a></li>
+						</ul>
+					</li>
+					<li><a href="JoinUs.html">加入我们</a>
+						<ul>
+							<li><a href="JoinUs.html">申请要求</a></li>
+							<li><a href="process.html">申请流程</a></li>
+							<li><a href="apply.html">填写申请表</a></li>
+						</ul>
+					</li>
+					<li><a href="AboutUs.html">交流合作</a>
+						<ul>
+							<li><a href="AboutUs.html">联系我们</a></li>
+							<li><a href="cooperation.html">校外合作</a></li>
+						</ul>
+					</li>
+					<li><a href="GuestBook.html">留言板</a>
+					</li>
+				</ul>
+				<div class="sign">
+					<a id="register" href="javascript:;">注册</a>
+					<a id="login" href="javascript:;">登录</a>
+					<a id="logout" style="display: none" href="javascript:;">退出</a>
+					<a id="user" style="display: none;" href="javascript:;"></a>
+				</div>
+			</div>
+		</div>
+		<!--登录注册-->
+		<div class="sign_wrap" id="sign_wrap">
+			<div class="sign_con">
+				<a href="index.html"><img src="../img/TITLE1.png"/></a>
+				<div class="form">
+					<a href="javascript:;" class="close"></a>
+					<ul>
+						<li class="active"><a href="javascript:;">登录</a></li>
+						<li><a href="javascript:;">注册</a></li>
+					</ul>
+					<div class="login">
+						<form  action="">
+							<p><span>用户名：</span><input type="text" id="username2" name="name" placeholder="请输入您的用户名" /></p>
+							<p><span>密码：</span><input type="password" id="password2" name="password" placeholder="请输入您的密码" /></p>
+							<span id="message1" style="position: absolute;top: 120px;left: 160px; width: 230px;margin: 0; text-align: left; font-size: 12px;"></span>
+							<a class="btn"  id="btnLogin" href="javascript:;" >登录</a>
+						</form>
+						<a class="togo" href="javascript:;">还没有账号，立即注册！</a>
+					</div>
+					<div class="reg">
+						<form  action="">
+							<p><span>用户名：</span><input type="text" id="username1" name="name" placeholder="请输入您的用户名" /></p>
+							<span id="verifyUserNameMsg" style="position: absolute;top: 60px;left: 160px; width: 230px;margin: 0; text-align: left; font-size: 12px;"></span>
+							<p><span>密码：</span><input type="password" id="password1" name="password" placeholder="请输入您的密码" /></p>
+							<p><span>确认密码：</span><input id="password1_e" type="password" name="e_password" placeholder="请再次输入您的密码" /></p>
+							<span id="message2" style="position: absolute;top: 180px;left: 160px; width: 230px;margin: 0; text-align: left; font-size: 12px;"></span>
+							<a class="btn" id="btnReg" ref="javascript:;">注册</a>
+							<a class="togo" href="javascript:;">已有账号，立即登录！</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--team-->
+		<div class="team">
+			<div class="wrap clear">
+				<div class="team_left">
+					<a class="active" href="student.html">基地优秀学生</a>
+					<a href="teacher.html">基地优秀指导教师</a>
+				</div>
+				<div class="team_right">
+					<h2>基地优秀学生</h2>
+					<div class="content clear" id="teamList">
+
+					</div>
+					<div class="pages">
+						<a href="javascript:void(0);" id="prev">上一页</a>
+						<a href="javascript:void(0);" id="next">下一页</a>
+						<span>共<b id="allpage"></b>页,当前是第<b id="now"></b>页</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 页脚 -->
+		<div class="footer">
+			<div class="wrap">
+				<a class="logo" href="index.html"><img src="../img/TITLE1.png"/></a>
+				<p>友情链接：<a href="#">音频制作工作室</a><a href="#">影视制作工作室</a><a href="#">平面与网络工作室</a><a href="#">3d与虚拟现实工作室</a></p>
+				<p>Copyright © 2017 - 2019  信息技术与传媒学院 版权所有</p>
+				<p>地址：吉林省吉林市北华大学东校区电教楼</p>
+			</div>
+		</div>
+		<script src="../js/ajax.js" type="text/javascript"></script>
+		<script src="../js/guestbook.js" type="text/javascript"></script>
+		<script  type="text/javascript">
+            		$('.footer').css('position','fixed');
+		</script>
+	</body>
+</html>

@@ -1,0 +1,45 @@
+/* intro */
+
+.intro{
+	margin-top: 65px;
+	width: 100%;
+	background: #ededed;
+}
+.intro .wrap{
+	padding:5% 15%;
+}
+.intro_left{
+	width: 27%;
+	float: left;
+	margin-right: 6%;
+	text-align: center;
+}
+.intro_left a{
+	height: 50px;
+	line-height: 50px;
+	border-radius: 5px;
+	background: #333;
+	font-size: 16px;
+	display: block;
+	color: #fff;
+	height: 40px;
+	margin-bottom: 10px;
+	line-height: 40px;
+}
+.intro_left .active{
+	background: #98FB98;
+}
+.intro_right{
+	width: 60%;
+	padding-left: 6%;
+	border-left: 2px solid #000;
+	float: left;
+}
+.intro_right h2{
+	color: #333;
+}
+.intro_right p{
+	font-size: 14px;
+	margin-bottom: 20px;
+	line-height: 24px;
+}
