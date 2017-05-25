@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Created by Administrator on 2017/5/15 0015.
  */
 var iPage = 1;
@@ -41,6 +41,7 @@ oPostBtn.onclick = function() {
         if (!d.code) {
             //添加当前留言到列表中
             createList(d.data, true);
+		oContent.value = '';
         }
 
     });
@@ -114,7 +115,7 @@ function createList(data, insert) {
 					message : 返回的信息 具体返回信息
 				}
 		*/
-		ajax('get', '../php/user/index.php', 'm=index&a=getList&n=2&page=' + iPage, function(data) {
+		ajax('get', '../php/user/index.php', 'm=index&a=getList&n=4&page=' + iPage, function(data) {
 
 			var d = JSON.parse(data);
 

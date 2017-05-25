@@ -30,9 +30,9 @@ window.onload = function () {
 console.log(con);
             name.innerHTML = con.name;
             author.innerHTML = author2.innerHTML = con.author;
-            teacher.innerHTML = teacher2.innerHTM = con.teacher;
+            teacher.innerHTML = teacher2.innerHTML = con.teacher;
             honor.innerHTML = con.honor;
-            studio.innerHTML = studio3.innerHTML = studio3.innerHTML = con.studio;
+            studio.innerHTML = studio2.innerHTML = studio3.innerHTML = con.studio;
             description.innerHTML = con.description;
             competition.innerHTML = con.competition;
             type.innerHTML = con.type;

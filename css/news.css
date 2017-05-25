@@ -65,8 +65,14 @@
 	font-weight: normal;
 	float: right;
 }
-.news_right .content p{
+.news_right .content p span{
 	text-indent: 2em;
+	overflow: hidden;
+	height:32px;
+ 	text-overflow: ellipsis;
+ 	-webkit-line-clamp: 2;
+ 	display: -webkit-box;
+ 	-webkit-box-orient: vertical;
 }
 .news_right .content p a{
 	color: #196AEB;	
@@ -112,6 +118,7 @@
 
 .news  #article{
 	text-align: center;
+	padding-bottom:20px;
 }
 .news  #article span{
 	margin-bottom: 20px;
@@ -119,4 +126,5 @@
 .news  #article p{
 	line-height:20px;
 	margin-top: 20px;
+        text-align: left;
 }

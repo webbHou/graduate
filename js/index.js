@@ -20,6 +20,7 @@ window.onload = function () {
     ajax('get', 'php/user/index.php', 'm=index&n=8&a=getProductList', function (data){
         var d = JSON.parse(data);
         Oul2.innerHTML = '';
+	console.log(d);
         for(var i=0;i<d.data.list.length;i++){
             creaProductlist(d.data.list[i]);
         }
@@ -37,7 +38,7 @@ window.onload = function () {
     function creaNewslist(data,insert) {
         var Oli = document.createElement('li');
         var Oa = document.createElement('a');
-        Oa.href = 'html/News_detaile.html#id=' +data.Nid;
+        Oa.href = 'html/News_detaile.html#id='+data.Nid;
         Oa.innerHTML = data.title;
         var Ospan = document.createElement('span');
         Ospan.innerHTML = data.date;
@@ -65,6 +66,7 @@ window.onload = function () {
     var user = document.getElementById('user');
     var register = document.getElementById('register');
     var login = document.getElementById('login');
+    var admin = document.getElementById('admin');
     var logout = document.getElementById('logout');
     var oUserInfo = document.getElementById('sign_wrap');
 
@@ -81,16 +83,20 @@ window.onload = function () {
     var oVerifyUserNameMsg = document.getElementById('verifyUserNameMsg');
 
     //初始化
-    updateUserStatus();
+    updateUserStatus(false);
 
-    function updateUserStatus() {
+    function updateUserStatus(isAdmin) {
         var uid = getCookie('uid');
         var username = getCookie('username');
         if (uid) {
             //如果是登陆状态
             user.style.display = 'block';
             user.innerHTML = '欢迎你'+username;
-            logout.style.display = 'block';
+            if(isAdmin){
+                admin.style.display = 'block';
+            }else {
+                logout.style.display = 'block';
+            }
             login.style.display = 'none';
             register.style.display = 'none';
             oUserInfo.style.display = 'none';
@@ -201,7 +207,7 @@ window.onload = function () {
             if (!d.code) {
                 setTimeout(function () {
                     message1.innerHTML = d.message;
-                    updateUserStatus();
+                    updateUserStatus(d.isAdmin);
                 },1000);
             }
         });

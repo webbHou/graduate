@@ -2,16 +2,20 @@
 .guestbook{
 	margin-top: 65px;
 	width: 100%;
+	background: #111;
 }
 .guestbook .wrap{
+
 }
 .guestbook .head{
 	height: 80px;
-	background: url(../img/guest_head.png) no-repeat center;
+	background: url("../img/head.png") no-repeat center;
+	margin:10px 0;
 }
 .guestbook_con{
-	padding: 20px 0;
-	width: 700px;
+	background-size: cover;
+	padding: 20px 50px;
+	width: 750px;
 	margin: 0 auto;
 }
 .write{
@@ -24,25 +28,24 @@
 	color: #fff;
 }
 .write span{
-	width: 5%;
 	vertical-align:top;
 	font-size: 14px;
 	line-height: 30px;
 }
 .write textarea{
-	margin-left: 20px;
+	margin-left: 10px;
 	padding: 10px;
 	border-radius: 10px;
 	font-size: 16px;
-	width: 580px;
-	height: 80px;
+	width: 600px;
+	height: 120px;
 	border-color: #fff;
 	outline: none;
 }
 .write a{
 	font-size: 14px;
-	height: 40px;
-	line-height: 40px;
+	height: 30px;
+	line-height: 30px;
 	float: right;
 	margin:10px 30px 0 0;
 	border-radius: 5px;
@@ -55,13 +58,16 @@
 }
 
 .guest_old dl{
-	background: url(../img/guest_bg.png) no-repeat center -10px;
-	background-size: 100% 98%;
+	float: left;
+	width:295px;
+	height: 203px;;
+	background: url(../img/guest_bg.png) no-repeat 0 0;
+	background-size: 100% 100%;
 	overflow: hidden;
 	word-break: break-all;
 	border-radius: 10px;
 	margin-top: 20px;
-	padding: 80px 40px 20px;
+	padding: 10px 40px 20px;
 	color: #fff;
 }
 .guest_old dt{
@@ -75,8 +81,13 @@
 	text-indent: 2em;
 	padding: 10px 0;
 }
+.guest_old dl dd:nth-of-type(1){
+   height:85px;
+   overflow:hidden;
+}
 .guest_old dd.t{
 	float: right;
+	padding-bottom: 20px;
 }
 .guest_old a{
 	color: #98FB98;
@@ -89,9 +100,8 @@
 	background: #FFF400;
 	color: #333;
 	text-align: center;
-	margin: 0 auto;
+	margin: 0 auto 20px;
 	font-size: 16px;
-	margin-top: 30px;
 	border-radius: 5px;
 }
 .guestbook_con a:hover{text-decoration: underline;}

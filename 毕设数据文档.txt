@@ -23,5 +23,10 @@
 学生申请表（uid、uname、class、申请工作室、intro）
 
 留言表( gid,user,password,content)
+
+
+管理员账号：用户名admin  密码admin
+
+数据库连接配置文件：config.php
  
 

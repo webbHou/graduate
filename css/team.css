@@ -69,13 +69,13 @@
 .team_right .content dd h3{
 	overflow: hidden;
 	font-weight: bold;
-	height: 30px;
+	height: 24px;
 	font-size: 14px;
-	line-height: 30px;
+	line-height: 24px;
 }
 
 .team_right .content dd p{
-	line-break: 20px;
+	height: 32px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	-webkit-line-clamp: 2;

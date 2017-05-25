@@ -1,4 +1,4 @@
-/* 主样式表  */
+﻿/* 主样式表  */
 
 /* banner */
 #banner{
@@ -150,6 +150,7 @@
 }
 .news li a{
 	float: left;
+	height:30px;
 	color: #333;
 	width:70%;
 	text-overflow: ellipsis;

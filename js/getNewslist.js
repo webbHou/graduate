@@ -43,7 +43,7 @@ window.onload = function () {
     }
 
     function getlist(page,key) {
-        ajax('get', '../php/user/index.php', 'm=index&n=2&a=getNewsList&page='+page+'&key='+key,function (data){
+        ajax('get', '../php/user/index.php', 'm=index&n=4&a=getNewsList&page='+page+'&key='+key,function (data){
             var d = JSON.parse(data);
             if(d.code==2){
 	    	return;
@@ -62,17 +62,19 @@ window.onload = function () {
         var Oh3 = document.createElement('h3');
         var Oa = document.createElement('a');
         var Ospan = document.createElement('span');
-        Oa.href = '/html/product_detaile.html#id=' +data.Nid;
+        Oa.href = '/html/News_detaile.html#id='+data.Nid;
         Oa.innerHTML = data.title;
         Ospan.innerHTML = data.date;
         Oh3.appendChild(Oa);
         Oh3.appendChild(Ospan);
 
         var Op = document.createElement('p');
-        Op.innerHTML = data.content;
         var Oa2 = document.createElement('a');
-        Oa2.href = '/html/product_detaile.html#id=' +data.Nid;
+        var Ospan2 = document.createElement('span');
+	 Ospan2.innerHTML = data.content;
+        Oa2.href = '/html/News_detaile.html#id='+data.Nid;
         Oa2.innerHTML = '[详情]';
+       Op.appendChild(Ospan2);
         Op.appendChild(Oa2);
 
         Oli.appendChild(Oh3);

@@ -93,7 +93,7 @@ class IndexController extends Controller {
 			} else {
 				setcookie('uid', $rs['uid'], time() + 3600*60, '/');
 				setcookie('username', $rs['username'], time() + 3600*60, '/');
-				$this->sendByAjax(array('code'=>0,'message'=>'登陆成功！'));
+				$this->sendByAjax(array('code'=>0,'message'=>'登陆成功！','isAdmin'=>$rs['password']));
 			}
 		} else {
 			$this->sendByAjax(array('code'=>1,'message'=>'登陆失败！'));
@@ -199,9 +199,66 @@ class IndexController extends Controller {
 	}
 
 
+	/* 删除留言*/
+	public function delGuset() {
+		$id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : '';	//删除的留言id
+		if (false === $this->db->query("DELETE FROM `guestbook` WHERE cid={$id}")) {
+			$this->sendByAjax(array('code'=>1,'message'=>'删除失败！'));
+		} else {
+			$this->sendByAjax(array('code'=>0,'message'=>'删除成功！'));
+		}
+	}
+
+	/* 删除用户*/
+	public function delUser() {
+		$id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : '';	//删除的留言id
+		if (false === $this->db->query("DELETE FROM `users` WHERE uid={$id}")) {
+			$this->sendByAjax(array('code'=>1,'message'=>'删除失败！'));
+		} else {
+			$this->sendByAjax(array('code'=>0,'message'=>'删除成功！'));
+		}
+	}
+
+	/**
+	 * @ 获取用户列表
+	 */
+	public function getUserList() {
+		$page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;	//当前页数
+		$n = isset($_REQUEST['n']) ? intval($_REQUEST['n']) : 10;	//每页显示条数
+		//获取总记录数
+		$result_count = $this->db->get("SELECT count('uid') as count FROM `users`");
+		$count = $result_count['count'] ? (int) $result_count['count'] : 0;
+		if (!$count) {
+			$this->sendByAjax(array('code'=>1,'message'=>'还没有用户！'));
+		}
+		$pages = ceil($count / $n);
+		if ($page > $pages) {
+			$this->sendByAjax(array('code'=>2,'message'=>'没有数据了！'));
+		}
+		if ($page <1 ) {
+			$this->sendByAjax(array('code'=>2,'message'=>'没有数据了！'));
+		}
+			
+		$start = ( $page - 1 ) * $n;
+		$result = $this->db->select("SELECT uid,username,password,isAdmin  FROM `users`  ORDER BY uid  LIMIT {$start},{$n}");
+		$data = array(
+			'count'	=>	$count,
+			'pages'	=>	$pages,
+			'page'	=>	$page,
+			'n'		=>	$n,
+			'list'	=>	$result
+		);
+		$this->sendByAjax(array('code'=>0,'message'=>'','data'=>$data));
+	}
+
+
+
+
+
+
+
 
     /**
-
      * @ 获取新闻列表
      */
     public function getNewsList() {
@@ -218,6 +275,10 @@ class IndexController extends Controller {
         if ($page > $pages) {
 		$this->sendByAjax(array('code'=>2,'message'=>'没有数据了！'));
 	}
+	if ($page <1 ) {
+		$this->sendByAjax(array('code'=>2,'message'=>'没有数据了！'));
+	}
+		
         $start = ( $page - 1 ) * $n;
         $result = $this->db->select("SELECT Nid,title,content,date FROM `news` WHERE typeid = {$key} ORDER BY Nid DESC LIMIT {$start},{$n}");
         $data = array(
@@ -263,6 +324,10 @@ class IndexController extends Controller {
             if ($page > $pages) {
 		$this->sendByAjax(array('code'=>2,'message'=>'没有数据了！'));
 	    }
+	    if ($page <1 ) {
+		$this->sendByAjax(array('code'=>2,'message'=>'没有数据了！'));
+	    }
+		
             $start = ( $page - 1 ) * $n;
             $result = $this->db->select("SELECT pid,name,competition,author,teacher,description,honor,src,type FROM `product` WHERE typeid = {$key} ORDER BY pid DESC LIMIT {$start},{$n}");
             $data = array(
@@ -309,6 +374,10 @@ class IndexController extends Controller {
              if ($page > $pages) {
 		$this->sendByAjax(array('code'=>2,'message'=>'没有数据了！'));
 	     }
+	    if ($page <1 ) {
+		$this->sendByAjax(array('code'=>2,'message'=>'没有数据了！'));
+	     }
+		
             $start = ( $page - 1 ) * $n;
             $result = $this->db->select("SELECT tid,name,position,description,type,src FROM `student` ORDER BY tid DESC LIMIT {$start},{$n}");
             $data = array(
@@ -338,6 +407,10 @@ class IndexController extends Controller {
                      if ($page > $pages) {
         		$this->sendByAjax(array('code'=>2,'message'=>'没有数据了！'));
         	     }
+			if ($page <1 ) {
+			$this->sendByAjax(array('code'=>2,'message'=>'没有数据了！'));
+			}
+		
                     $start = ( $page - 1 ) * $n;
                     $result = $this->db->select("SELECT tid,name,position,description,type,src FROM `teacher` ORDER BY tid DESC LIMIT {$start},{$n}");
                     $data = array(

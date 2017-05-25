@@ -3,6 +3,7 @@
     var register = document.getElementById('register');
     var login = document.getElementById('login');
     var logout = document.getElementById('logout');
+    var admin = document.getElementById('admin');
     var oUserInfo = document.getElementById('sign_wrap');
 
 
@@ -18,16 +19,20 @@
     var oVerifyUserNameMsg = document.getElementById('verifyUserNameMsg');
 
     //初始化
-    updateUserStatus();
+    updateUserStatus(false);
 
-    function updateUserStatus() {
+    function updateUserStatus(isAdmin) {
         var uid = getCookie('uid');
         var username = getCookie('username');
         if (uid) {
             //如果是登陆状态
             user.style.display = 'block';
             user.innerHTML = '欢迎你'+username;
-            logout.style.display = 'block';
+            if(isAdmin){
+                admin.style.display = 'block';
+            }else {
+                logout.style.display = 'block';
+            }
             login.style.display = 'none';
             register.style.display = 'none';
             oUserInfo.style.display = 'none';
@@ -138,7 +143,7 @@
             if (!d.code) {
                 setTimeout(function () {
                     message1.innerHTML = d.message;
-                    updateUserStatus();
+                    updateUserStatus(d.isAdmin);
                 },1000);
             }
         });

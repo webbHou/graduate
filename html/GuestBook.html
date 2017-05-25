@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="shortcut icon" href="img/icon3.ico" />
+		<link rel="shortcut icon" href="../img/icon3.ico" />
 		<title>留言板-数字媒体教育实践基地</title>
 		<link rel="stylesheet" href="../css/cssrepeat.css" />
 		<link rel="stylesheet" href="../css/header&footer.css" />
@@ -66,6 +66,7 @@
 				<div class="sign">
 					<a id="register" href="javascript:;">注册</a>
 					<a id="login" href="javascript:;">登录</a>
+					<a id="admin" style="display: none;" href="/admin/index.html">管理中心</a>
 					<a id="logout" style="display: none" href="javascript:;">退出</a>
 					<a id="user" style="display: none;" href="javascript:;"></a>
 				</div>
@@ -107,14 +108,14 @@
 		<!--guestbook-->
 		<div class="guestbook">
 			<div class="wrap clear">
-				<!--<div class="head">
-				</div>-->
+				<div class="head">
+				</div>
 				<div class="guestbook_con">
 					<div class="write">
 						<div><span>内容：</span><textarea id="guest_new"></textarea></div>
 						<a href="javascript:;" id="add_guest">发布留言</a>
 					</div>
-					<div class="guest_old" id="guest_list">
+					<div class="guest_old clear" id="guest_list">
 						<!--<dl class="clear">-->
 							<!--<dt>-->
 								<!--<strong>zmouse</strong> 说 :-->
@@ -122,7 +123,7 @@
 							<!--<dd>数字媒体属于工学学科门类，是指以二进制数的形式记录、处理、传播、获取过程的信息载体，这些载体包括数字化的文字、图形、图像、声音、视频影像和动画等感觉媒体，和表示这些感觉媒体的表示媒体（编码）等，通称为逻辑媒体，以及存储、传输、显示逻辑媒体的实物媒体。</dd>-->
 							<!--<dd class="t">-->
 								<!--<a href="javascript:;" id="support">顶(<span>0</span>)</a>-->
-								 <!--| -->
+								 <!--|-->
 								<!--<a href="javascript:;" id="oppose">踩(<span>0</span>)</a>-->
 							<!--</dd>-->
 						<!--</dl>-->
@@ -141,7 +142,7 @@
 				<p>地址：吉林省吉林市北华大学东校区电教楼</p>
 			</div>
 		</div>
-		<script src="../js/ajax.js" type="text/javascript"></script>
+		<script src="../admin/js/ajax.js" type="text/javascript"></script>
 		<script src="../js/guest.js" type="text/javascript"></script>
 		<script src="../js/guestbook.js" type="text/javascript"></script>
 	</body>
