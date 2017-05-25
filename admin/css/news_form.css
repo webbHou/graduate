@@ -1,0 +1,91 @@
+.wrap{
+    width:100%;
+    height:100%;
+    position: absolute;
+    background: rgba(0,0,0,.4);
+    z-index:999;
+    top:0;
+}
+.news_form{
+    text-align: center;
+    width:500px;
+    position: absolute;
+    left:50%;
+    top:50%;
+    margin-top: -300px;
+    margin-left: -250px;
+    background: rgba(0,0,0,0);
+    border-radius: 10px;
+}
+.news_form h3{
+    font-size: 30px;
+    color: #fff;
+    background: #66d074;
+    border-radius:5px;
+    width:150px;
+    margin: 10px auto;
+    padding:5px 10px;
+    box-shadow: 1px 1px 6px 3px rgba(0,0,0,.3);
+}
+.closes{
+    position: absolute;
+    width:40px;
+    height:40px;
+    top:10px;
+    right:10px;
+    background: url("../img/close.png") no-repeat center;
+    background-size: cover;
+}
+form{
+    text-align: left;
+    background: #fff;
+    border-radius: 10px;
+    padding:20px;
+    box-shadow: 1px 1px 10px 2px rgba(0,0,0,.3);
+}
+form p{
+    line-height:40px;
+    margin: 10px 0;
+}
+form p span{
+    text-align: right;
+    display: block;
+    float: left;
+    margin-right: 15px;
+    width:25%;
+}
+form input,form select,form textarea{
+    width:60%;
+    padding-left:10px;
+    outline: none;
+    resize: none;
+    border:2px solid #333;
+    border-radius: 5px;
+}
+form #tips{
+    text-align: center;
+    height:30px;
+    line-height:30px;
+}
+form input,form select{
+    height:40px;
+    line-height:40px;
+    vertical-align: middle;
+}
+form textarea{
+    height:100px;
+    line-height:20px;
+}
+form .submit{
+    text-align: center;
+    width:100px;
+    display: block;
+    margin: 0 auto;
+    height:40px;
+    line-height:40px;
+    background: #FFF400;
+    border-radius:10px;
+    box-shadow: 1px 1px 5px  1px rgba(0,0,0,.3);
+    color: #fff;
+    border:0;
+}

@@ -252,11 +252,7 @@ class IndexController extends Controller {
 	}
 
 
-
-
-
-
-
+	
 
     /**
      * @ 获取新闻列表
@@ -339,7 +335,100 @@ class IndexController extends Controller {
             );
             $this->sendByAjax(array('code'=>0,'message'=>'','data'=>$data));
         }
+        
+        /* 更新作品信息 */
+       	public function updateProduct(){
+			$name = $_POST['name'];
+			$author = $_POST['author'];
+			$teacher = $_POST['teacher'];
+			$honor = $_POST['honor'];
+			$competition = $_POST['competition'];
+			$type = $_POST['type'];
+			$studio = $_POST['studio'];
+			$description = $_POST['description'];
+			$src = $_POST['src'];
+			$typeid = 0;
+			if($type=="平面作品"){
+				$typeid = 1;
+			}else if($type == '影视作品'){
+				$typeid = 2;
+			}else if($type == '音频作品'){
+				$typeid = 3;
+			}else{
+				$typeid = 4;
+			}
+			if(isset($_REQUEST['id'])){
+       			$id = isset($_REQUEST['id']);
+				$result = $this->db->query("UPDATE `product` SET name={$name},author={$author},teacher={$teacher},honor={$honor},competition={$competition},type={$type},studio={$studio},description={$description},src={$src} WHERE pid={$id}");
+       		}else{
+				$result = $this->db->query("INSERT INTO `product` (`name`, `author`, `teacher`,`description`, `honor`, `src`,`type`, `competition`, `studio`,`typeid`) VALUES ({$name},{$author},{$teacher},{$description},{$honor},{$src},{$type},{$competition},{$studio},{$typeid})");
+       		}
+			$data = array(
+				'list'	=>	$result
+			);
+			$this->sendByAjax(array('code'=>0,'message'=>'更新成功','data'=>$data));
+		}
 
+
+		/* 更新/添加新闻信息 */
+		public function updateNews(){
+			$title = $_POST['title'];
+			$date = $_POST['date'];
+			$content = $_POST['content'];
+			$type = $_POST['type'];
+
+			if(isset($_REQUEST['id'])){
+				$id = isset($_REQUEST['id']);
+				$result = $this->db->query("UPDATE `news` SET title={$title},date={$date},content={$content},type={$type} WHERE Nid={$id}");
+			}else{
+				$result = $this->db->query("INSERT INTO `product` (`title`, `content`, `date`,`type`) VALUES ({$title},{$content},{$date},{$type})");
+			}
+			$data = array(
+				'list'	=>	$result
+			);
+			$this->sendByAjax(array('code'=>0,'message'=>'更新成功','data'=>$data));
+		}
+
+
+		/* 更新/添加学生成员信息 */
+		public function updateStudent(){
+			$name = $_POST['name'];
+			$position = $_POST['position'];
+			$description = $_POST['description'];
+			$type = $_POST['type'];
+			$src = $_POST['src'];
+
+			if(isset($_REQUEST['id'])){
+				$id = isset($_REQUEST['id']);
+				$result = $this->db->query("UPDATE `student` SET name={$name},position={$position},$description={$description},type={$type},src={$src} WHERE tid={$id}");
+			}else{
+				$result = $this->db->query("INSERT INTO `student` (`name`, `position`, `description`,`type`,`src`) VALUES ({$name},{$position},{$description},{$type},{$src})");
+			}
+			$data = array(
+				'list'	=>	$result
+			);
+			$this->sendByAjax(array('code'=>0,'message'=>'更新成功','data'=>$data));
+		}
+
+		/* 更新/添加学生成员信息 */
+		public function updateTeacher(){
+			$name = $_POST['name'];
+			$position = $_POST['position'];
+			$description = $_POST['description'];
+			$type = $_POST['type'];
+			$src = $_POST['src'];
+
+			if(isset($_REQUEST['id'])){
+				$id = isset($_REQUEST['id']);
+				$result = $this->db->query("UPDATE `teacher` SET name={$name},position={$position},$description={$description},type={$type},src={$src} WHERE tid={$id}");
+			}else{
+				$result = $this->db->query("INSERT INTO `teacher` (`name`, `position`, `description`,`type`,`src`) VALUES ({$name},{$position},{$description},{$type},{$src})");
+			}
+			$data = array(
+				'list'	=>	$result
+			);
+			$this->sendByAjax(array('code'=>0,'message'=>'更新成功','data'=>$data));
+		}
          /*@ 获取作品单条*/
 
                 public function getProduct() {
@@ -390,6 +479,24 @@ class IndexController extends Controller {
             $this->sendByAjax(array('code'=>0,'message'=>'','data'=>$data));
         }
 
+		/*@ 获取学生单条*/
+
+                public function getStudent() {
+                    $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 1;	//每页显示条数
+                    //获取总记录数
+                    $result_count = $this->db->get("SELECT count('tid') as count FROM `student`");
+                    $count = $result_count['count'] ? (int) $result_count['count'] : 0;
+                    if (!$count) {
+                        $this->sendByAjax(array('code'=>1,'message'=>'还没有作品！'));
+                    }
+                    $result = $this->db->select("SELECT * FROM `student` WHERE pid={$id}");
+                    $data = array(
+                        'count'	=>	$count,
+                        'list'	=>	$result
+                    );
+                    $this->sendByAjax(array('code'=>0,'message'=>'','data'=>$data));
+                }
+
 
 
          /*@ 获取教师成员列表*/
@@ -418,6 +525,24 @@ class IndexController extends Controller {
                         'pages'	=>	$pages,
                         'page'	=>	$page,
                         'n'		=>	$n,
+                        'list'	=>	$result
+                    );
+                    $this->sendByAjax(array('code'=>0,'message'=>'','data'=>$data));
+                }
+
+			/*@ 获取老师单条*/
+
+                public function getTeacher() {
+                    $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 1;	//每页显示条数
+                    //获取总记录数
+                    $result_count = $this->db->get("SELECT count('tid') as count FROM `teacher`");
+                    $count = $result_count['count'] ? (int) $result_count['count'] : 0;
+                    if (!$count) {
+                        $this->sendByAjax(array('code'=>1,'message'=>'还没有老师！'));
+                    }
+                    $result = $this->db->select("SELECT * FROM `teacher` WHERE pid={$id}");
+                    $data = array(
+                        'count'	=>	$count,
                         'list'	=>	$result
                     );
                     $this->sendByAjax(array('code'=>0,'message'=>'','data'=>$data));
