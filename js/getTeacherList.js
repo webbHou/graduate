@@ -42,7 +42,7 @@ window.onload = function () {
         var Odt = document.createElement('dt');
         var Oa = document.createElement('a');
         var Oimg = document.createElement('img');
-        Oa.href = '/html/product_detaile.html#id='+data.tid;
+        Oa.href = '/html/team_detaile.html#id='+data.tid;
         Oimg.src = data.src;
         Oa.appendChild(Oimg);
         Odt.appendChild(Oa);

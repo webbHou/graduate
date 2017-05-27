@@ -218,7 +218,42 @@ class IndexController extends Controller {
 			$this->sendByAjax(array('code'=>0,'message'=>'删除成功！'));
 		}
 	}
-
+	/* 删除作品*/
+	public function delProduct() {
+		$id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : '';	//删除的留言id
+		if (false === $this->db->query("DELETE FROM `product` WHERE pid={$id}")) {
+			$this->sendByAjax(array('code'=>1,'message'=>'删除失败！'));
+		} else {
+			$this->sendByAjax(array('code'=>0,'message'=>'删除成功！'));
+		}
+	}
+	/* 删除新闻*/
+	public function delNews() {
+		$id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : '';	//删除的留言id
+		if (false === $this->db->query("DELETE FROM `news` WHERE Nid={$id}")) {
+			$this->sendByAjax(array('code'=>1,'message'=>'删除失败！'));
+		} else {
+			$this->sendByAjax(array('code'=>0,'message'=>'删除成功！'));
+		}
+	}
+	/* 删除学生*/
+	public function delStudent() {
+		$id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : '';	//删除的留言id
+		if (false === $this->db->query("DELETE FROM `student` WHERE tid={$id}")) {
+			$this->sendByAjax(array('code'=>1,'message'=>'删除失败！'));
+		} else {
+			$this->sendByAjax(array('code'=>0,'message'=>'删除成功！'));
+		}
+	}
+	/* 删除教师*/
+	public function delTeacher() {
+		$id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : '';	//删除的留言id
+		if (false === $this->db->query("DELETE FROM `teacher` WHERE tid={$id}")) {
+			$this->sendByAjax(array('code'=>1,'message'=>'删除失败！'));
+		} else {
+			$this->sendByAjax(array('code'=>0,'message'=>'删除成功！'));
+		}
+	}
 	/**
 	 * @ 获取用户列表
 	 */
@@ -251,6 +286,38 @@ class IndexController extends Controller {
 		$this->sendByAjax(array('code'=>0,'message'=>'','data'=>$data));
 	}
 
+	
+	/**
+	 * @ 获取申请信息列表
+	 */
+	public function getApply() {
+		$page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;	//当前页数
+		$n = isset($_REQUEST['n']) ? intval($_REQUEST['n']) : 10;	//每页显示条数
+		//获取总记录数
+		$result_count = $this->db->get("SELECT count('aid') as count FROM `apply`");
+		$count = $result_count['count'] ? (int) $result_count['count'] : 0;
+		if (!$count) {
+			$this->sendByAjax(array('code'=>1,'message'=>'还没有用户！'));
+		}
+		$pages = ceil($count / $n);
+		if ($page > $pages) {
+			$this->sendByAjax(array('code'=>2,'message'=>'没有数据了！'));
+		}
+		if ($page <1 ) {
+			$this->sendByAjax(array('code'=>2,'message'=>'没有数据了！'));
+		}
+			
+		$start = ( $page - 1 ) * $n;
+		$result = $this->db->select("SELECT aid,name,class,Professional,studio,tel,email,intro  FROM `apply`  ORDER BY aid  LIMIT {$start},{$n}");
+		$data = array(
+			'count'	=>	$count,
+			'pages'	=>	$pages,
+			'page'	=>	$page,
+			'n'		=>	$n,
+			'list'	=>	$result
+		);
+		$this->sendByAjax(array('code'=>0,'message'=>'','data'=>$data));
+	}
 
 	
 
@@ -258,7 +325,7 @@ class IndexController extends Controller {
      * @ 获取新闻列表
      */
     public function getNewsList() {
-        $key = isset($_REQUEST['key']) ? intval($_REQUEST['key']) : 1; //获取类型
+        $key = isset($_REQUEST['key']) ? intval($_REQUEST['key']) : 4; //获取类型
         $page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;	//当前页数
         $n = isset($_REQUEST['n']) ? intval($_REQUEST['n']) : 5;	//每页显示条数
         //获取总记录数
@@ -325,7 +392,7 @@ class IndexController extends Controller {
 	    }
 		
             $start = ( $page - 1 ) * $n;
-            $result = $this->db->select("SELECT pid,name,competition,author,teacher,description,honor,src,type FROM `product` WHERE typeid = {$key} ORDER BY pid DESC LIMIT {$start},{$n}");
+            $result = $this->db->select("SELECT pid,name,competition,author,teacher,description,honor,src,type,studio FROM `product` WHERE typeid = {$key} ORDER BY pid DESC LIMIT {$start},{$n}");
             $data = array(
                 'count'	=>	$count,
                 'pages'	=>	$pages,
@@ -336,6 +403,73 @@ class IndexController extends Controller {
             $this->sendByAjax(array('code'=>0,'message'=>'','data'=>$data));
         }
         
+
+		/* 更新/添加新闻信息 */
+		public function updateNews(){
+			$title = $_POST['title'];
+			$date = $_POST['date'];
+			$content = $_POST['content'];
+			$type = $_POST['type'];
+			if(isset($_REQUEST['id'])){
+				$id = intval($_REQUEST['id']);
+				$result = $this->db->query("UPDATE `news` SET title='{$title}',date='{$date}',content='{$content}',typeid={$type} WHERE Nid={$id}") or die(mysql_error());
+			}else{
+				$result = $this->db->query("INSERT INTO `news` (`title`,`content`, `date`,`typeid`) VALUES ('{$title}','{$content}','{$date}',{$type})") or die(mysql_error());
+			}
+			$data = array(
+				'list'	=>	$result
+			);
+			echo "<script>alert('操作成功!');location.href='".$_SERVER["HTTP_REFERER"]."#{$type}';</script>";
+		}
+
+
+		/* 更新/添加学生成员信息 */
+		public function updateStudent(){
+			$name = $_POST['name'];
+			$position = $_POST['position'];
+			$description = $_POST['description'];
+			$type = $_POST['type'];
+			$src = $_POST['src'];
+
+			if(isset($_REQUEST['id'])){
+				$id = intval($_REQUEST['id']);
+				$result = $this->db->query("UPDATE `student` SET name='{$name}',position='{$position}',description='{$description}',type='{$type}',src='{$src}' WHERE tid={$id}") or die(mysql_error());
+			}else{
+				$result = $this->db->query("INSERT INTO `student` (`name`,`position`, `description`,`type`,`src`) VALUES ('{$name}','{$position}','{$description}','{$type}','{$src}')") or die(mysql_error());
+			}
+			$data = array(
+				'id' => $id,
+				'name'=> $name,
+				'position' => $position,
+				'description' => $description,
+				'type'=> $type,
+				'src' => $src,
+				'result' =>  $result
+			);
+			echo "<script>alert('操作成功!');location.href='".$_SERVER["HTTP_REFERER"]."';</script>";
+		}
+
+		/* 更新/添加教师成员信息 */
+		public function updateTeacher(){
+			$name = $_POST['name'];
+			$position = $_POST['position'];
+			$description = $_POST['description'];
+			$type = $_POST['type'];
+			$src = $_POST['src'];
+
+			if(isset($_REQUEST['id'])){
+				$id = intval($_REQUEST['id']);
+				$result = $this->db->query("UPDATE `teacher` SET name='{$name}',position='{$position}',description='{$description}',type='{$type}',src='{$src}' WHERE tid={$id}") or die(mysql_error());
+			}else{
+				$result = $this->db->query("INSERT INTO `teacher` (`name`, `position`, `description`,`type`,`src`) VALUES ('{$name}','{$position}','{$description}','{$type}','{$src}')") or die(mysql_error());
+			}
+			$data = array(
+				'list'	=>	$result
+			);
+			echo "<script>alert('操作成功!');location.href='".$_SERVER["HTTP_REFERER"]."#';</script>";
+		}
+
+
         /* 更新作品信息 */
        	public function updateProduct(){
 			$name = $_POST['name'];
@@ -351,84 +485,27 @@ class IndexController extends Controller {
 			if($type=="平面作品"){
 				$typeid = 1;
 			}else if($type == '影视作品'){
-				$typeid = 2;
-			}else if($type == '音频作品'){
 				$typeid = 3;
+			}else if($type == '音频作品'){
+				$typeid = 2;
 			}else{
 				$typeid = 4;
 			}
+			
 			if(isset($_REQUEST['id'])){
-       			$id = isset($_REQUEST['id']);
-				$result = $this->db->query("UPDATE `product` SET name={$name},author={$author},teacher={$teacher},honor={$honor},competition={$competition},type={$type},studio={$studio},description={$description},src={$src} WHERE pid={$id}");
+       			$id = intval($_REQUEST['id']);
+				$result = $this->db->query("UPDATE `product` SET name='{$name}',author='{$author}',teacher='{$teacher}',description='{$description}',honor='{$honor}',src='{$src}',type='{$type}',competition='{$competition}',studio='{$studio}',typeid='{$typeid}' WHERE pid={$id}") or die(mysql_error());
        		}else{
-				$result = $this->db->query("INSERT INTO `product` (`name`, `author`, `teacher`,`description`, `honor`, `src`,`type`, `competition`, `studio`,`typeid`) VALUES ({$name},{$author},{$teacher},{$description},{$honor},{$src},{$type},{$competition},{$studio},{$typeid})");
+				$result = $this->db->query("INSERT INTO `product` (`name`, `author`, `teacher`,`description`, `honor`, `src`,`type`, `competition`, `studio`,`typeid`) VALUES ('{$name}','{$author}','{$teacher}','{$description}','{$honor}','{$src}','{$type}','{$competition}','{$studio}',{$typeid})") or die(mysql_error());
        		}
 			$data = array(
 				'list'	=>	$result
 			);
-			$this->sendByAjax(array('code'=>0,'message'=>'更新成功','data'=>$data));
+			echo "<script>alert('操作成功!');location.href='".$_SERVER["HTTP_REFERER"]."#{$typeid}';</script>";
 		}
 
 
-		/* 更新/添加新闻信息 */
-		public function updateNews(){
-			$title = $_POST['title'];
-			$date = $_POST['date'];
-			$content = $_POST['content'];
-			$type = $_POST['type'];
-
-			if(isset($_REQUEST['id'])){
-				$id = isset($_REQUEST['id']);
-				$result = $this->db->query("UPDATE `news` SET title={$title},date={$date},content={$content},type={$type} WHERE Nid={$id}");
-			}else{
-				$result = $this->db->query("INSERT INTO `product` (`title`, `content`, `date`,`type`) VALUES ({$title},{$content},{$date},{$type})");
-			}
-			$data = array(
-				'list'	=>	$result
-			);
-			$this->sendByAjax(array('code'=>0,'message'=>'更新成功','data'=>$data));
-		}
-
-
-		/* 更新/添加学生成员信息 */
-		public function updateStudent(){
-			$name = $_POST['name'];
-			$position = $_POST['position'];
-			$description = $_POST['description'];
-			$type = $_POST['type'];
-			$src = $_POST['src'];
-
-			if(isset($_REQUEST['id'])){
-				$id = isset($_REQUEST['id']);
-				$result = $this->db->query("UPDATE `student` SET name={$name},position={$position},$description={$description},type={$type},src={$src} WHERE tid={$id}");
-			}else{
-				$result = $this->db->query("INSERT INTO `student` (`name`, `position`, `description`,`type`,`src`) VALUES ({$name},{$position},{$description},{$type},{$src})");
-			}
-			$data = array(
-				'list'	=>	$result
-			);
-			$this->sendByAjax(array('code'=>0,'message'=>'更新成功','data'=>$data));
-		}
-
-		/* 更新/添加学生成员信息 */
-		public function updateTeacher(){
-			$name = $_POST['name'];
-			$position = $_POST['position'];
-			$description = $_POST['description'];
-			$type = $_POST['type'];
-			$src = $_POST['src'];
-
-			if(isset($_REQUEST['id'])){
-				$id = isset($_REQUEST['id']);
-				$result = $this->db->query("UPDATE `teacher` SET name={$name},position={$position},$description={$description},type={$type},src={$src} WHERE tid={$id}");
-			}else{
-				$result = $this->db->query("INSERT INTO `teacher` (`name`, `position`, `description`,`type`,`src`) VALUES ({$name},{$position},{$description},{$type},{$src})");
-			}
-			$data = array(
-				'list'	=>	$result
-			);
-			$this->sendByAjax(array('code'=>0,'message'=>'更新成功','data'=>$data));
-		}
+		
          /*@ 获取作品单条*/
 
                 public function getProduct() {
@@ -489,7 +566,7 @@ class IndexController extends Controller {
                     if (!$count) {
                         $this->sendByAjax(array('code'=>1,'message'=>'还没有作品！'));
                     }
-                    $result = $this->db->select("SELECT * FROM `student` WHERE pid={$id}");
+                    $result = $this->db->select("SELECT tid,name,position,description,type,src FROM `student` WHERE tid={$id}");
                     $data = array(
                         'count'	=>	$count,
                         'list'	=>	$result
@@ -540,7 +617,7 @@ class IndexController extends Controller {
                     if (!$count) {
                         $this->sendByAjax(array('code'=>1,'message'=>'还没有老师！'));
                     }
-                    $result = $this->db->select("SELECT * FROM `teacher` WHERE pid={$id}");
+                    $result = $this->db->select("SELECT tid,name,position,description,type,src FROM `teacher` WHERE tid={$id}");
                     $data = array(
                         'count'	=>	$count,
                         'list'	=>	$result

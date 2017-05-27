@@ -5,6 +5,9 @@
 
 window.onload = function () {
 
+	
+
+
     var id = window.location.hash.split('#')[1];
     var key = window.location.search.split('?')[1];
     var page = 1;
@@ -30,7 +33,7 @@ window.onload = function () {
     var prev = document.getElementById('prev');
     var next = document.getElementById('next');
 
-    getlist(page,key);
+    getlist(page,key,id);
 
     prev.onclick = function () {
         page--;
@@ -42,34 +45,61 @@ window.onload = function () {
     }
 
     function getlist(page,key,id) {
-
-        ajax('get', '/php/user/index.php', 'm=index&n=5&a='+key+'&page='+page+'key='+id,function (data){
+	  for(var i=0;i<Oli.length;i++){
+                Oli[i].className = '';
+           }
+	   
+        ajax('get', '/php/user/index.php', 'm=index&n=5&a='+key+'&page='+page+'&key='+id,function (data){
             var d = JSON.parse(data);
             if(d.code==2){
                 return;
             }
+		
             tbody.innerHTML = '';
 
             if(key == 'getProductList'){
                 title.innerHTML = '作品管理';
-                Oli[0].className = 'active';
+                Oli[12].className = 'active';
                 thead.innerHTML = '<tr><th>Id</th><th>name</th><th>author</th><th>teacher</th><th>荣誉</th><th>赛事</th><th>作品简介</th><th>作品类型</th><th>所属工作室</th><th>操作</th></tr>';
+		if(!d.data.list){
+			alert("还没有内容！");
+			return;
+		}
                 for(var i=0;i<d.data.list.length;i++){
                     getProductList(d.data.list[i]);
                 }
             }else if(key == 'getNewsList'){
-                Oli[1].className = 'active';
+                Oli[3].className = 'active';
                 title.innerHTML = '新闻管理';
                 thead.innerHTML = '<tr><th>Id</th><th>标题</th><th>内容</th><th>日期</th><th>操作</th></tr>';
+		if(!d.data.list){
+			alert("还没有内容！");
+			return;
+		}
                 for(var i=0;i<d.data.list.length;i++){
                     getNewsList(d.data.list[i]);
                 }
-            }else{
-            	 Oli[1].className = 'active';
-                title.innerHTML = '团队管理';
-                thead.innerHTML = '<tr><th>Id</th> <th>name</th> <th>职称</th> <th>简介</th><th>所属工作室</th> <th>操作</th></tr>';
+            }else if(key == 'getStudentList'){
+            	 Oli[9].className = 'active';
+                title.innerHTML = '学生管理';
+                thead.innerHTML = '<tr><th>Id</th> <th>name</th> <th>班级</th> <th>简介</th><th>所属工作室</th> <th>操作</th></tr>';
+		if(!d.data.list){
+			alert("还没有内容！");
+			return;
+		}
                 for(var i=0;i<d.data.list.length;i++){
-                    getTeamList(d.data.list[i]);
+                    getstudentList(d.data.list[i]);
+                }
+            }else{
+            	 Oli[9].className = 'active';
+                title.innerHTML = '教师管理';
+                thead.innerHTML = '<tr><th>Id</th> <th>name</th> <th>职称</th> <th>简介</th><th>所属工作室</th> <th>操作</th></tr>';
+		if(!d.data.list){
+			alert("还没有内容！");
+			return;
+		}
+                for(var i=0;i<d.data.list.length;i++){
+                    getTeacherList(d.data.list[i]);
                 }
             }
 
@@ -100,10 +130,10 @@ window.onload = function () {
         Otd4.innerHTML = data.teacher;
         Otd5.innerHTML = data.honor;
         Otd6.innerHTML = data.competition;
-        Otd7.innerHTML = data.description;
+        Otd7.innerHTML = data.description.slice(0,30);
         Otd8.innerHTML = data.type;
         Otd9.innerHTML = data.studio;
-        Otd10.innerHTML = '<a href="javascript:;" onclick="update(getProduct,'+data.pid+');">修改</a><a href="javascript:;" onclick="delUser('+data.pid+');">删除</a>';
+        Otd10.innerHTML = '<a href="javascript:;" onclick="update('+data.pid+');">修改</a><a href="javascript:;" onclick="delProduct('+data.pid+');">删除</a>';
 
         Otr.appendChild(Otd1);
         Otr.appendChild(Otd2);
@@ -130,9 +160,9 @@ window.onload = function () {
 
         Otd1.innerHTML = data.Nid;
         Otd2.innerHTML = data.title;
-        Otd3.innerHTML = data.content;
+        Otd3.innerHTML = data.content.slice(0,30);
         Otd4.innerHTML = data.date;
-        Otd5.innerHTML = '<a  href="javascript:;" onclick="update('+data.Nid+');">删除</a><a  href="javascript:;" onclick="delGuset('+data.Nid+');">删除</a>';
+        Otd5.innerHTML = '<a  href="javascript:;" onclick="update('+data.Nid+');">修改</a><a  href="javascript:;" onclick="delNews('+data.Nid+');">删除</a>';
 
         Otr.appendChild(Otd1);
         Otr.appendChild(Otd2);
@@ -143,7 +173,7 @@ window.onload = function () {
 
     }
 
-    function getTeamList(data) {
+    function getstudentList(data) {
         var Otr = document.createElement('tr');
         var Otd1 = document.createElement('td');
         var Otd2 = document.createElement('td');
@@ -155,9 +185,35 @@ window.onload = function () {
         Otd1.innerHTML = data.tid;
         Otd2.innerHTML = data.name;
         Otd3.innerHTML = data.position;
-        Otd4.innerHTML = data.description;
+        Otd4.innerHTML = data.description.slice(0,30);
         Otd5.innerHTML = data.type;
-        Otd6.innerHTML = '<a  href="javascript:;" onclick="update('+data.tid+');">删除</a><a  href="javascript:;" onclick="delGuset('+data.tid+');">删除</a>';
+        Otd6.innerHTML = '<a  href="javascript:;" onclick="update('+data.tid+');">修改</a><a  href="javascript:;" onclick="delStudent('+data.tid+');">删除</a>';
+
+        Otr.appendChild(Otd1);
+        Otr.appendChild(Otd2);
+        Otr.appendChild(Otd3);
+        Otr.appendChild(Otd4);
+        Otr.appendChild(Otd5);
+        Otr.appendChild(Otd6);
+        tbody.appendChild(Otr);
+    }
+
+
+  function getTeacherList(data) {
+        var Otr = document.createElement('tr');
+        var Otd1 = document.createElement('td');
+        var Otd2 = document.createElement('td');
+        var Otd3 = document.createElement('td');
+        var Otd4 = document.createElement('td');
+        var Otd5 = document.createElement('td');
+        var Otd6 = document.createElement('td');
+
+        Otd1.innerHTML = data.tid;
+        Otd2.innerHTML = data.name;
+        Otd3.innerHTML = data.position;
+        Otd4.innerHTML = data.description.slice(0,30);
+        Otd5.innerHTML = data.type;
+        Otd6.innerHTML = '<a  href="javascript:;" onclick="update('+data.tid+');">修改</a><a  href="javascript:;" onclick="delTeacher('+data.tid+');">删除</a>';
 
         Otr.appendChild(Otd1);
         Otr.appendChild(Otd2);
@@ -169,60 +225,7 @@ window.onload = function () {
     }
 
    
-   var form_wrap = document.getElementById('form');
-   var form = form_wrap.getElementsByTagName('form');
    
-    function update(id) {
-    	form_wrap.style.display = 'block';
-    	var fn,child;
-    	if(key=='getProductList'){
-    		fn = 'getProduct';
-    		form[3].style.display = 'block';
-    		form[3].action = '/php/user/index.php?a=index&a=updateProduct&id='+id;
-    		child = form[3].getElementsByTagName('input');
-    	}else if(key=='getNewsList'){
-    		fn = 'getNews'
-    		form[0].style.display = 'block';
-    		form[0].action = '/php/user/index.php?a=index&a=updateNews&id='+id;
-    		child = form[0].getElementsByTagName('input');
-    	}else if(key=='getStudentList'){
-    		fn = 'getStudent';
-    		form[1].style.display = 'block';
-    		form[1].action = '/php/user/index.php?a=index&a=updateStudent&id='+id;
-    		child = form[1].getElementsByTagName('input');
-    	}else{
-    		fn = 'getTeacher';
-    		form[2].style.display = 'block';
-    		form[2].action = '/php/user/index.php?a=index&a=updateacher&id='+id;
-    		child = form[2].getElementsByTagName('input');
-    	}
-    	
-        ajax('get', '/php/user/index.php', 'm=index&a='+fn+'&id='+id,function (data) {
-        	var d = JSON.parse(data).list[0];
-        	if(key=='getProductList'){
-        		var text = document.getElementsByTagName('textarea')[0];
-        		child[0].value= d.name;
-        		child[1].value = d.author;
-        		child[2].value = d.teacher;
-        		child[3].value = d.honor;
-        		child[4].value = d.competition;
-        		child[5].value = d.src;
-        		text.value = d.description;
-        	}else if(key=='getNewsList'){
-        		var text = document.getElementsByTagName('textarea')[0];
-        		child[0].value= d.title;
-        		child[1].value = d.date;
-        		text.value = d.content;
-        	}else{
-        		var text = document.getElementsByTagName('textarea')[0];
-        		child[0].value= d.name;
-        		child[1].value = d.position;
-        		child[2].value = d.src;
-        		text.value = d.description;
-        	}
-        });
-    }
-
 }
 
 

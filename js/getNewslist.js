@@ -7,24 +7,19 @@
 
 window.onload = function () {
     var page = 1;
-    var key = 1;
+    var key = window.location.hash.split('#')[1];
+	console.log(key);
     var list = document.getElementById('list');
     var title = document.getElementById('title');
     var Olink = list.getElementsByTagName('a');
 
-    for(var i=0;i<Olink.length;i++){
-        Olink[i].index = i;
-        Olink[i].onclick = function(){
-            page = 1;
-            title.innerHTML = this.innerHTML;
-            for(var i=0;i<Olink.length;i++){
-                Olink[i].className = '';
-            }
-            this.className = 'active';
-            key = this.index+1;
-            getlist(page,key);
-        }
-    }
+    window.onhashchange = function(){
+		
+		page = 1;
+		key = window.location.hash.split('#')[1];
+		getlist(page,key);
+		
+	}
 
     var Oul  =  document.getElementById('newList');
     var allpage  =  document.getElementById('allpage');
@@ -43,6 +38,22 @@ window.onload = function () {
     }
 
     function getlist(page,key) {
+for(var i=0;i<Olink.length;i++){
+                	Olink[i].className = '';
+           	}
+	if(key==1){
+			Olink[0].className = 'active';
+			title.innerHTML = '数字媒体行业新闻';
+		}else if(key==2){
+			Olink[1].className = 'active';
+			title.innerHTML = '学校新闻';
+		}else if(key==3){
+			Olink[2].className = 'active';
+			title.innerHTML = '基地新闻';
+		}else{
+			Olink[3].className = 'active';
+			title.innerHTML = '比赛公告';
+		}	
         ajax('get', '../php/user/index.php', 'm=index&n=4&a=getNewsList&page='+page+'&key='+key,function (data){
             var d = JSON.parse(data);
             if(d.code==2){

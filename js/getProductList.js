@@ -6,24 +6,19 @@
 
 window.onload = function () {
     var page = 1;
-    var key = 1;
-
+    var key = window.location.hash.split('#')[1];
+	console.log(key);
     var list = document.getElementById('list');
     var title = document.getElementById('title');
     var Olink = list.getElementsByTagName('a');
-	for(var i=0;i<Olink.length;i++){
-		Olink[i].index = i;
- 		Olink[i].onclick = function(){
-			page = 1;
-			title.innerHTML = this.innerHTML;
-			for(var i=0;i<Olink.length;i++){
-				Olink[i].className = '';
-			}
-			this.className = 'active';
-    			key = this.index+1;
- 			getNewslist(page,key);
-		}
+	
+	window.onhashchange = function(){
+		page = 1;
+		key = window.location.hash.split('#')[1];
+		getProductlist(page,key);
+		
 	}
+
  
 
     var Oul  =  document.getElementById('productList');
@@ -32,7 +27,7 @@ window.onload = function () {
     var prev = document.getElementById('prev');
     var next = document.getElementById('next');
 
-    getNewslist(page,key);
+    getProductlist(page,key);
 
     prev.onclick = function () {
         page--;
@@ -43,7 +38,24 @@ window.onload = function () {
         getNewslist(page,key);
     }
 
-    function getNewslist(page,key) {
+    function getProductlist(page,key) {
+	for(var i=0;i<Olink.length;i++){
+                Olink[i].className = '';
+          }
+	if(key==1){
+			Olink[0].className = 'active';
+			title.innerHTML = '平面作品';
+		}else if(key==2){
+			Olink[1].className = 'active';
+			title.innerHTML = '音频作品';
+		}else if(key==3){
+			Olink[2].className = 'active';
+			title.innerHTML = '影视作品';
+		}else{
+			Olink[3].className = 'active';
+			title.innerHTML = '3D和虚拟现实作品';
+		}	
+
         ajax('get', '../php/user/index.php', 'm=index&n=3&a=getProductList&page='+page+'&key='+key,function (data){
             var d = JSON.parse(data);
 	    if(d.code==2){
